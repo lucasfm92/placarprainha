@@ -79,7 +79,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Column(
                     children: [
@@ -112,40 +112,40 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
                   Column(
                     children: [
-                      Text(
-                        '$scoreA',
-                        style: TextStyle(
-                          fontSize: screenSize.width * 0.2,
-                          color: Colors.red,
+                      FittedBox(
+                        fit: BoxFit.contain,
+                        child: Text(
+                          '$scoreA',
+                          style: TextStyle(
+                            fontSize: screenSize.width * 0.25,
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(width: screenSize.width * 0.1),
                   Container(
                     width: screenSize.width * 0.01,
                     height: screenSize.height * 0.6,
                     color: Colors.black,
                   ),
-                  SizedBox(width: screenSize.width * 0.1),
                   Column(
                     children: [
-                      Text(
-                        '$scoreB',
-                        style: TextStyle(
-                          fontSize: screenSize.width * 0.2,
-                          color: Colors.blue,
+                      FittedBox(
+                        fit: BoxFit.contain,
+                        child: Text(
+                          '$scoreB',
+                          style: TextStyle(
+                            fontSize: screenSize.width * 0.25,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold
+                          ),
                         ),
                       ),
                     ],
-                  ),
-                  const SizedBox(
-                    width: 10,
                   ),
                   Column(
                     children: [
