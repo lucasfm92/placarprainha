@@ -1,6 +1,13 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-void main() => runApp(const VolleyballScoreboard());
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+void main() {
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+  runApp(const VolleyballScoreboard());
+}
 
 class VolleyballScoreboard extends StatelessWidget {
   const VolleyballScoreboard({Key? key}) : super(key: key);
@@ -63,123 +70,119 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text('Placar Deixa Que Eu Deixo'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Column(
-                  children: [
-                    const Text(
-                      'Time A',
-                      style: TextStyle(fontSize: 50),
-                    ),
-                    Text(
-                      '$scoreA',
-                      style: const TextStyle(fontSize: 120),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 75,
-                          width: 75,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.red), // Altere a cor aqui
-                            ),
-                            onPressed: incrementScoreA,
-                            child: const Text(
-                              '+',
-                              style: TextStyle(fontSize: 40),
-                            ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Column(
+                    children: [
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(
+                            Colors.red,
                           ),
                         ),
-                        const SizedBox(width: 20),
-                        SizedBox(
-                          height: 75,
-                          width: 75,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.red), // Altere a cor aqui
-                            ),
-                            onPressed: decrementScoreA,
-                            child: const Text(
-                              '-',
-                              style: TextStyle(fontSize: 50),
-                            ),
+                        onPressed: incrementScoreA,
+                        child: const Text(
+                          '+',
+                          style: TextStyle(fontSize: 50),
+                        ),
+                      ),
+                      const SizedBox(height: 40),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(
+                            Colors.red,
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(width: 100),
-                Column(
-                  children: [
-                    const Text(
-                      'Time B',
-                      style: TextStyle(fontSize: 50),
-                    ),
-                    Text(
-                      '$scoreB',
-                      style: const TextStyle(fontSize: 120),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 75,
-                          width: 75,
-                          child: ElevatedButton(
-                            onPressed: incrementScoreB,
-                            child: const Text(
-                              '+',
-                              style: TextStyle(fontSize: 40),
-                            ),
-                          ),
+                        onPressed: decrementScoreA,
+                        child: const Text(
+                          '-',
+                          style: TextStyle(fontSize: 50),
                         ),
-                        const SizedBox(width: 20),
-                        SizedBox(
-                          height: 75,
-                          width: 75,
-                          child: ElevatedButton(
-                            onPressed: decrementScoreB,
-                            child: const Text(
-                              '-',
-                              style: TextStyle(fontSize: 50),
-                            ),
-                          ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        '$scoreA',
+                        style: TextStyle(
+                          fontSize: screenSize.width * 0.2,
+                          color: Colors.red,
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 50),
-            SizedBox(
-              height: 75,
-              width: 75,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.black), // Altere a cor aqui
-                ),
-                onPressed: resetScores,
-                child: const Text('Zerar'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: screenSize.width * 0.1),
+                  Container(
+                    width: screenSize.width * 0.01,
+                    height: screenSize.height * 0.6,
+                    color: Colors.black,
+                  ),
+                  SizedBox(width: screenSize.width * 0.1),
+                  Column(
+                    children: [
+                      Text(
+                        '$scoreB',
+                        style: TextStyle(
+                          fontSize: screenSize.width * 0.2,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: incrementScoreB,
+                        child: const Text(
+                          '+',
+                          style: TextStyle(fontSize: 50),
+                        ),
+                      ),
+                      const SizedBox(height: 40),
+                      ElevatedButton(
+                        onPressed: decrementScoreB,
+                        child: const Text(
+                          '-',
+                          style: TextStyle(fontSize: 50),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ),
-          ],
+              SizedBox(
+                height: screenSize.height * 0.1,
+                width: screenSize.width * 0.3,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Colors.black,
+                    ),
+                  ),
+                  onPressed: resetScores,
+                  child: const Text('Zerar'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
